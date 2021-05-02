@@ -14,18 +14,25 @@
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef M_CALENDAR_UI_H
-#define M_CALENDAR_UI_H
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 
-#include <gtk/gtk.h>
-#include <shell/e-shell-view.h>
+#include <glib-object.h>
 
-G_BEGIN_DECLS
+#include "m-shell-view-extension.h"
 
-void		m_calendar_ui_init	(GtkUIManager *ui_manager,
-					 EShellView *shell_view,
-					 gchar **ui_definition);
+/* Module Entry Points */
+void e_module_load (GTypeModule *type_module);
+void e_module_unload (GTypeModule *type_module);
 
-G_END_DECLS
+G_MODULE_EXPORT void
+e_module_load (GTypeModule *type_module)
+{
+	m_shell_view_extension_type_register (type_module);
+}
 
-#endif /* M_CALENDAR_UI_H */
+G_MODULE_EXPORT void
+e_module_unload (GTypeModule *type_module)
+{
+}

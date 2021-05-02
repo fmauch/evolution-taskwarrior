@@ -1,15 +1,15 @@
-# Evolution example-module build script
+# Evolution taskwarrior-module build script
 
 cmake_minimum_required(VERSION 2.8)
 cmake_policy(VERSION 2.6)
 
-project(example-modules C)
+project(taskwarrior-module C)
 
 #
 # Base bits
 #
-set(GETTEXT_PACKAGE "example-module")
-set(RELEASE_NAME "Evolution example module.")
+set(GETTEXT_PACKAGE "taskwarrior-module")
+set(RELEASE_NAME "Evolution taskwarrior module.")
 set(VERSION "0.0.1")
 set(VERSION_INFO "Release")
 set(LANGUAGE_SUPPORT_DIRECTORY ${CMAKE_INSTALL_PREFIX}/share/locale)
