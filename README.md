@@ -43,6 +43,6 @@ This extension doesn't have any meaningful error handling or feedback (yet). If 
 from the shell, you'll see the output similar like
 
 ```
-Executing: task add +email "This is my mail subject (From: <name@example.org)"
+Executing: task add +email "This is my mail subject (From: <name@example.org>)"
 Created task 87.
 ```
