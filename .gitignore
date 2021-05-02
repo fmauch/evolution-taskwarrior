@@ -1,0 +1,3 @@
+build/*
+cmake_uninstall.cmake.in
+.cache
