@@ -32,7 +32,6 @@
 #include "m-mail-ui.h"
 #include "m-utils.h"
 
-
 static void
 action_message_cb (GtkAction *action,
                    EShellView *shell_view)

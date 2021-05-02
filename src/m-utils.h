@@ -21,10 +21,10 @@
 
 G_BEGIN_DECLS
 
-void		m_utils_enable_actions		(GtkActionGroup *action_group,
-						 const GtkActionEntry *entries,
-						 guint n_entries,
-						 gboolean enable);
+void m_utils_enable_actions (GtkActionGroup *action_group,
+                             const GtkActionEntry *entries,
+                             guint n_entries,
+                             gboolean enable);
 
 G_END_DECLS
 

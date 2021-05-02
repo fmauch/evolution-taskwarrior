@@ -22,22 +22,23 @@
 
 void
 m_utils_enable_actions (GtkActionGroup *action_group,
-			const GtkActionEntry *entries,
-			guint n_entries,
-			gboolean enable)
+                        const GtkActionEntry *entries,
+                        guint n_entries,
+                        gboolean enable)
 {
-	gint ii;
+  gint ii;
 
-	g_return_if_fail (action_group != NULL);
-	g_return_if_fail (entries != NULL);
+  g_return_if_fail (action_group != NULL);
+  g_return_if_fail (entries != NULL);
 
-	for (ii = 0; ii < n_entries; ii++) {
-		GtkAction *action;
+  for (ii = 0; ii < n_entries; ii++)
+    {
+      GtkAction *action;
 
-		action = gtk_action_group_get_action (action_group, entries[ii].name);
-		if (!action)
-			continue;
+      action = gtk_action_group_get_action (action_group, entries[ii].name);
+      if (!action)
+        continue;
 
-		gtk_action_set_sensitive (action, enable);
-	}
+      gtk_action_set_sensitive (action, enable);
+    }
 }

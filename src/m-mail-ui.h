@@ -22,9 +22,9 @@
 
 G_BEGIN_DECLS
 
-void		m_mail_ui_init		(GtkUIManager *ui_manager,
-					 EShellView *shell_view,
-					 gchar **ui_definition);
+void m_mail_ui_init (GtkUIManager *ui_manager,
+                     EShellView *shell_view,
+                     gchar **ui_definition);
 
 G_END_DECLS
 

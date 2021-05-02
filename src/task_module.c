@@ -29,7 +29,7 @@ void e_module_unload (GTypeModule *type_module);
 G_MODULE_EXPORT void
 e_module_load (GTypeModule *type_module)
 {
-	m_shell_view_extension_type_register (type_module);
+  m_shell_view_extension_type_register (type_module);
 }
 
 G_MODULE_EXPORT void
