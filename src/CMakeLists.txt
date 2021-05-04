@@ -1,9 +1,13 @@
 list(APPEND SOURCES
   task_module.c
+  task.h
+  task.c
   m-mail-ui.h
   m-mail-ui.c
   m-shell-view-extension.h
   m-shell-view-extension.c
+  m-task-ui.h
+  m-task-ui.c
   m-utils.h
   m-utils.c
   )

@@ -30,7 +30,40 @@
 #include <mail/message-list.h>
 
 #include "m-mail-ui.h"
+#include "m-task-ui.h"
 #include "m-utils.h"
+
+static void
+task_refinement_cb (GtkDialog *dialog,
+                    gint response_id,
+                    Task *task)
+{
+  /*This will cause the dialog to be destroyed*/
+  gtk_widget_destroy (GTK_WIDGET (dialog));
+
+  size_t needed =
+      snprintf (NULL, 0,
+                "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+                task->tags,
+                task->description,
+                task->project,
+                task->due,
+                task->scheduled,
+                task->priority,
+                task->title);
+  char *command = malloc (needed);
+  sprintf (command,
+           "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+           task->tags,
+           task->description,
+           task->project,
+           task->due,
+           task->scheduled,
+           task->priority,
+           task->title);
+  g_print ("Executing: %s\n", command);
+  system (command);
+}
 
 static void
 action_message_cb (GtkAction *action,
@@ -39,6 +72,7 @@ action_message_cb (GtkAction *action,
   EShellContent *shell_content;
   EMailView *mail_view = NULL;
   GPtrArray *selected_uids = NULL;
+  GtkWindow *window = NULL;
   CamelFolder *folder = NULL;
   guint ii;
   CamelMessageInfo *info = NULL;
@@ -52,6 +86,7 @@ action_message_cb (GtkAction *action,
     {
       selected_uids = e_mail_reader_get_selected_uids (E_MAIL_READER (mail_view));
       folder = e_mail_reader_ref_folder (E_MAIL_READER (mail_view));
+      window = e_mail_reader_get_window (E_MAIL_READER (mail_view));
     }
 
   g_return_if_fail (E_IS_SHELL_VIEW (shell_view));
@@ -59,11 +94,19 @@ action_message_cb (GtkAction *action,
     {
       message_uid = g_ptr_array_index (selected_uids, ii);
       info = camel_folder_get_message_info (folder, message_uid);
-      size_t needed = snprintf (NULL, 0, "task add +email \"%s (From: %s)\"", camel_message_info_get_subject (info), camel_message_info_get_from (info)) + 1;
-      char *command = malloc (needed);
-      sprintf (command, "task add +email \"%s (From: %s)\"", camel_message_info_get_subject (info), camel_message_info_get_from (info));
-      g_print ("Executing: %s\n", command);
-      system (command);
+
+      Task *task = create_task ();
+      size_t needed = snprintf (NULL, 0, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info)) + 1;
+      task->title = malloc (needed);
+      sprintf (task->title, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info));
+      task->tags = strdup ("email");
+      GtkWidget *dialog = create_task_dialog (window, task);
+      g_signal_connect (dialog,
+                        "response",
+                        G_CALLBACK (task_refinement_cb),
+                        task);
+
+      gtk_widget_show_all (dialog);
     }
 
   if (selected_uids)
