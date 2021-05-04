@@ -41,28 +41,31 @@ task_refinement_cb (GtkDialog *dialog,
   /*This will cause the dialog to be destroyed*/
   gtk_widget_destroy (GTK_WIDGET (dialog));
 
-  size_t needed =
-      snprintf (NULL, 0,
-                "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
-                task->tags,
-                task->description,
-                task->project,
-                task->due,
-                task->scheduled,
-                task->priority,
-                task->title);
-  char *command = malloc (needed);
-  sprintf (command,
-           "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
-           task->tags,
-           task->description,
-           task->project,
-           task->due,
-           task->scheduled,
-           task->priority,
-           task->title);
-  g_print ("Executing: %s\n", command);
-  system (command);
+  if (response_id == GTK_RESPONSE_OK)
+    {
+      size_t needed =
+          snprintf (NULL, 0,
+                    "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+                    task->tags,
+                    task->description,
+                    task->project,
+                    task->due,
+                    task->scheduled,
+                    task->priority,
+                    task->title);
+      char *command = malloc (needed);
+      sprintf (command,
+               "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+               task->tags,
+               task->description,
+               task->project,
+               task->due,
+               task->scheduled,
+               task->priority,
+               task->title);
+      g_print ("Executing: %s\n", command);
+      system (command);
+    }
 }
 
 static void

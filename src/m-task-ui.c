@@ -50,6 +50,8 @@ create_task_dialog (GtkWindow *parent, Task *task)
                                         flags,
                                         _ ("_Create Task"),
                                         GTK_RESPONSE_OK,
+                                        _ ("_Abort"),
+                                        GTK_RESPONSE_CANCEL,
                                         NULL);
   content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
   grid = gtk_grid_new ();
