@@ -59,6 +59,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("Task title");
   GtkWidget *entry_title = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry_title), task->title);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry_title), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry_title, 1, 0, 4, 1);
   g_signal_connect (entry_title,
@@ -69,6 +70,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("project");
   entry = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry), task->project);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 1, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry, 1, 1, 1, 1);
   g_signal_connect (entry,
@@ -79,6 +81,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("Task description");
   entry = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry), task->description);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
   g_signal_connect (entry,
@@ -89,6 +92,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("Tags");
   entry = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry), task->tags);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 3, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry, 1, 3, 1, 1);
   g_signal_connect (entry,
@@ -99,6 +103,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("Due");
   entry = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry), task->due);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 4, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry, 1, 4, 1, 1);
   g_signal_connect (entry,
@@ -109,6 +114,7 @@ create_task_dialog (GtkWindow *parent, Task *task)
   label = gtk_label_new ("Scheduled");
   entry = gtk_entry_new ();
   gtk_entry_set_text (GTK_ENTRY (entry), task->scheduled);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
   gtk_grid_attach (GTK_GRID (grid), label, 0, 5, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), entry, 1, 5, 1, 1);
   g_signal_connect (entry,
