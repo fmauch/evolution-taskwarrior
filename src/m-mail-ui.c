@@ -91,8 +91,6 @@ action_message_cb (GtkAction *action,
   config_dir = e_shell_backend_get_config_dir (shell_backend);
   cfg_file = g_build_filename (e_get_user_config_dir (), "evolution-taskwarrior.ini", NULL);
 
-  g_print ("Reading config from %s\n", cfg_file);
-
   g_object_get (shell_content, "mail-view", &mail_view, NULL);
   if (E_IS_MAIL_PANED_VIEW (mail_view))
     {
