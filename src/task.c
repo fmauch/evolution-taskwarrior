@@ -22,7 +22,6 @@ Task *
 create_task ()
 {
   Task *task = malloc (sizeof (Task));
-  task->title = "";
   task->description = "";
   task->project = "";
   task->tags = "";

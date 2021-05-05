@@ -51,8 +51,8 @@ task_refinement_cb (GtkDialog *dialog,
                     task->project,
                     task->due,
                     task->scheduled,
-                    task->priority,
-                    task->title);
+                    task->priority);
+
       char *command = malloc (needed);
       sprintf (command,
                "task add +%s description:\"%s\" project:%s due:%s scheduled:%s priority:%s \"%s\"",
@@ -61,8 +61,7 @@ task_refinement_cb (GtkDialog *dialog,
                task->project,
                task->due,
                task->scheduled,
-               task->priority,
-               task->title);
+               task->priority);
       g_print ("Executing: %s\n", command);
       system (command);
     }
@@ -100,8 +99,8 @@ action_message_cb (GtkAction *action,
 
       Task *task = create_task ();
       size_t needed = snprintf (NULL, 0, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info)) + 1;
-      task->title = malloc (needed);
-      sprintf (task->title, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info));
+      task->description = malloc (needed);
+      sprintf (task->description, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info));
       task->tags = strdup ("email");
       GtkWidget *dialog = create_task_dialog (window, task);
       g_signal_connect (dialog,

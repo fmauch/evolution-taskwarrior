@@ -21,7 +21,6 @@ typedef struct TaskDefinition Task;
 
 struct TaskDefinition
 {
-  char *title;
   char *description;
   char *project;
   char *tags;

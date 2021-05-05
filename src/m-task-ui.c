@@ -56,16 +56,16 @@ create_task_dialog (GtkWindow *parent, Task *task)
   content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
   grid = gtk_grid_new ();
 
-  label = gtk_label_new ("Task title");
-  GtkWidget *entry_title = gtk_entry_new ();
-  gtk_entry_set_text (GTK_ENTRY (entry_title), task->title);
-  gtk_entry_set_width_chars (GTK_ENTRY (entry_title), 99);
-  gtk_grid_attach (GTK_GRID (grid), label, 0, 0, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), entry_title, 1, 0, 4, 1);
-  g_signal_connect (entry_title,
+  label = gtk_label_new ("Task description");
+  entry = gtk_entry_new ();
+  gtk_entry_set_text (GTK_ENTRY (entry), task->description);
+  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
+  gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
+  gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
+  g_signal_connect (entry,
                     "changed",
                     G_CALLBACK (entry_changed),
-                    &task->title);
+                    &task->description);
 
   label = gtk_label_new ("project");
   entry = gtk_entry_new ();
@@ -77,17 +77,6 @@ create_task_dialog (GtkWindow *parent, Task *task)
                     "changed",
                     G_CALLBACK (entry_changed),
                     &task->project);
-
-  label = gtk_label_new ("Task description");
-  entry = gtk_entry_new ();
-  gtk_entry_set_text (GTK_ENTRY (entry), task->description);
-  gtk_entry_set_width_chars (GTK_ENTRY (entry), 99);
-  gtk_grid_attach (GTK_GRID (grid), label, 0, 2, 1, 1);
-  gtk_grid_attach (GTK_GRID (grid), entry, 1, 2, 1, 1);
-  g_signal_connect (entry,
-                    "changed",
-                    G_CALLBACK (entry_changed),
-                    &task->description);
 
   label = gtk_label_new ("Tags");
   entry = gtk_entry_new ();
