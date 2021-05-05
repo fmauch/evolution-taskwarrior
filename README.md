@@ -15,6 +15,9 @@ There might be some unneeded code being left around.
  * This plugin requires the `task` executable to be present and executable.
  * Requires evolution >= 3.36.0
 
+**Note**: If evolution is installed on ubuntu using `apt`, you probably need to install the
+development header package `evolution-dev`, as well.
+
 ## Installation
 For evolution >= 3.40.0:
 ```bash
