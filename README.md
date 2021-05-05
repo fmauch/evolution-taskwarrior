@@ -41,6 +41,19 @@ make && sudo make install
 After installation, you should have an entry in the context menu when right-clicking on an E-Mail
 saying "To Task Warrior" and a toolbar entry saying "Create TaskWarrior task".
 
+## Configuration
+You can setup the default values for a new task (except the description) by creating the file
+`~/.config/evolution/evolution-taskwarrior.ini`. An example config could look like this:
+
+```ini
+[Default task]
+project = none
+tags = email, next
+due = tomorrow
+scheduled = today
+priority = L
+```
+
 ## Troubleshooting
 This extension doesn't have any meaningful error handling or feedback (yet). If you start evolution
 from the shell, you'll see the output similar like

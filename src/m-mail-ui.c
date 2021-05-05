@@ -73,16 +73,26 @@ action_message_cb (GtkAction *action,
 {
   EShellContent *shell_content;
   EMailView *mail_view = NULL;
+  EShellBackend *shell_backend;
+
   GPtrArray *selected_uids = NULL;
   GtkWindow *window = NULL;
   CamelFolder *folder = NULL;
   guint ii;
   CamelMessageInfo *info = NULL;
   const gchar *message_uid;
+  const gchar *config_dir;
+  gchar *cfg_file;
 
   g_return_if_fail (E_IS_SHELL_VIEW (shell_view));
 
   shell_content = e_shell_view_get_shell_content (shell_view);
+  shell_backend = e_shell_view_get_shell_backend (shell_view);
+  config_dir = e_shell_backend_get_config_dir (shell_backend);
+  cfg_file = g_build_filename (e_get_user_config_dir (), "evolution-taskwarrior.ini", NULL);
+
+  g_print ("Reading config from %s\n", cfg_file);
+
   g_object_get (shell_content, "mail-view", &mail_view, NULL);
   if (E_IS_MAIL_PANED_VIEW (mail_view))
     {
@@ -97,11 +107,10 @@ action_message_cb (GtkAction *action,
       message_uid = g_ptr_array_index (selected_uids, ii);
       info = camel_folder_get_message_info (folder, message_uid);
 
-      Task *task = create_task ();
+      Task *task = create_default_task (cfg_file);
       size_t needed = snprintf (NULL, 0, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info)) + 1;
       task->description = malloc (needed);
       sprintf (task->description, "%s (From: %s)", camel_message_info_get_subject (info), camel_message_info_get_from (info));
-      task->tags = strdup ("email");
       GtkWidget *dialog = create_task_dialog (window, task);
       g_signal_connect (dialog,
                         "response",
@@ -196,4 +205,58 @@ m_mail_ui_init (GtkUIManager *ui_manager,
       shell_view, "update-actions",
       G_CALLBACK (m_mail_ui_update_actions_cb),
       shell_view);
+}
+
+Task *
+create_default_task (gchar *cfg_file)
+{
+  GKeyFile *keyfile;
+  keyfile = g_key_file_new ();
+
+  Task *task = create_task ();
+  g_autoptr (GError) error = NULL;
+  if (g_key_file_load_from_file (keyfile, cfg_file, 0, NULL))
+    {
+      {
+        char* val = g_key_file_get_string (keyfile, "Default task", "project", NULL);
+        if (val != NULL)
+        {
+          task->project = val;
+        }
+      }
+      {
+        char* val = g_key_file_get_string (keyfile, "Default task", "tags", NULL);
+        if (val != NULL)
+        {
+          task->tags = val;
+        }
+      }
+      {
+        char* val = g_key_file_get_string (keyfile, "Default task", "due", NULL);
+        if (val != NULL)
+        {
+          task->due = val;
+        }
+      }
+      {
+        char* val = g_key_file_get_string (keyfile, "Default task", "scheduled", NULL);
+        if (val != NULL)
+        {
+          task->scheduled = val;
+        }
+      }
+      {
+        char* val = g_key_file_get_string (keyfile, "Default task", "priority", NULL);
+        if (val != NULL)
+        {
+          task->priority = val;
+        }
+      }
+      error = NULL;
+    }
+  else
+    {
+      g_warning ("Could not find configuration file: %s. Using default values.", cfg_file);
+    }
+  return task;
 }

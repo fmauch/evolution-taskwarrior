@@ -117,7 +117,22 @@ create_task_dialog (GtkWindow *parent, Task *task)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "L");
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "M");
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "H");
-  gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+  if (strcmp (task->priority, "L") != 0)
+    {
+      gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 1);
+    }
+  else if (strcmp (task->priority, "M") != 0)
+    {
+      gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 2);
+    }
+  else if (strcmp (task->priority, "H") != 0)
+    {
+      gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 3);
+    }
+  else
+    {
+      gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 0);
+    }
   gtk_grid_attach (GTK_GRID (grid), label, 0, 6, 1, 1);
   gtk_grid_attach (GTK_GRID (grid), combo, 1, 6, 1, 1);
   g_signal_connect (combo,

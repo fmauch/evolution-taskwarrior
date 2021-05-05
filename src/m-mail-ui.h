@@ -20,11 +20,15 @@
 #include <gtk/gtk.h>
 #include <shell/e-shell-view.h>
 
+#include "task.h"
+
 G_BEGIN_DECLS
 
 void m_mail_ui_init (GtkUIManager *ui_manager,
                      EShellView *shell_view,
                      gchar **ui_definition);
+
+Task* create_default_task(gchar* config_file);
 
 G_END_DECLS
 
