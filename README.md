@@ -16,7 +16,7 @@ There might be some unneeded code being left around.
  * Requires evolution >= 3.36.0
 
 **Note**: If evolution is installed on ubuntu using `apt`, you probably need to install the
-development header package `evolution-dev` and `libebook1.2-dev`, as well.
+development header packages `evolution-dev` and `libebook1.2-dev`, as well.
 
 ## Installation
 For evolution >= 3.40.0:
