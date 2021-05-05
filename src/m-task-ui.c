@@ -117,15 +117,15 @@ create_task_dialog (GtkWindow *parent, Task *task)
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "L");
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "M");
   gtk_combo_box_text_append_text (GTK_COMBO_BOX_TEXT (combo), "H");
-  if (strcmp (task->priority, "L") != 0)
+  if (strcmp (task->priority, "L") == 0)
     {
       gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 1);
     }
-  else if (strcmp (task->priority, "M") != 0)
+  else if (strcmp (task->priority, "M") == 0)
     {
       gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 2);
     }
-  else if (strcmp (task->priority, "H") != 0)
+  else if (strcmp (task->priority, "H") == 0)
     {
       gtk_combo_box_set_active (GTK_COMBO_BOX (combo), 3);
     }
