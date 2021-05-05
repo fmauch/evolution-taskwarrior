@@ -45,7 +45,7 @@ task_refinement_cb (GtkDialog *dialog,
     {
       size_t needed =
           snprintf (NULL, 0,
-                    "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+                    "task add +%s description:\"%s\" project:%s due:%s scheduled:%s priority:%s \"%s\"",
                     task->tags,
                     task->description,
                     task->project,
@@ -55,7 +55,7 @@ task_refinement_cb (GtkDialog *dialog,
                     task->title);
       char *command = malloc (needed);
       sprintf (command,
-               "task add +%s description: \"%s\" project: \"%s\" due: \"%s\" scheduled: \"%s\" priority: \"%s\" \"%s\"",
+               "task add +%s description:\"%s\" project:%s due:%s scheduled:%s priority:%s \"%s\"",
                task->tags,
                task->description,
                task->project,
